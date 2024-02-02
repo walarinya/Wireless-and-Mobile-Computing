@@ -1,117 +1,128 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
-main() => runApp(App());
+void main() {
+  runApp(MyApp());
+}
 
-class App extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: 60.0,
-          horizontal: 80.0,
+    return MaterialApp(
+      home: SelectPlanPage(),
+    );
+  }
+}
+
+class SelectPlanPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 40.0),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                padding: EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Image.asset(
+                  'assets/back.png', // Replace with your back button image asset
+                  width: 90.0,
+                  height: 45.0,
+                  color: Color(0x36E591),
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                'Select Your Plan',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PlanCard('Lose Weight', 'assets/lose weight.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
+                    SizedBox(height: 12.0),
+                    PlanCard('Cardio', 'assets/cardio.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
+                    SizedBox(height: 12.0),
+                    PlanCard('Build Muscle', 'assets/build muscle.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-        color: Color(0xFFFFFFFF),
-        child: Content(),
       ),
     );
   }
 }
 
-class Content extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Counter('6488101'),
-        Counter('Supavit Tounnawarat'),
-        Counter('Fit home App'),
-        Counter('6488055,6488076,6488082,6488101')
-      ],
-    );
-  }
-}
+class PlanCard extends StatelessWidget {
+  final String planName;
+  final String imagePath;
+  final List<Color> gradientColors;
 
-class Counter extends StatefulWidget {
-  final String _name;
-  Counter(this._name);
-
-  @override
-  State<Counter> createState() => _CounterState();
-}
-
-class _CounterState extends State<Counter> {
-  int count = 0;
+  PlanCard(this.planName, this.imagePath, {required this.gradientColors});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10.0),
-      padding: EdgeInsets.all(4.0),
+      width: 335.0,
+      height: 117.0,
+      padding: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFFFD6A02)),
-        borderRadius: BorderRadius.circular(4.0),
+        gradient: LinearGradient(
+          colors: gradientColors,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+        borderRadius: BorderRadius.circular(10.0),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          // [widget] is the property of the State class that stores
-          // the instance of the [StatefulWidget] ([Counter] in our case)
-          _CounterLabel(widget._name),
-          _CounterButton(
-            count,
-            onPressed: () {
-              setState(() {
-                ++count;
-              });
-            },
+          Image.asset(
+            imagePath,
+            width: 50.0,
+            height: 100.0,
+            fit: BoxFit.cover,
+          ),
+          SizedBox(width: 20.0),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                planName,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _CounterLabel extends StatelessWidget {
-  static const textStyle = TextStyle(
-    color: Color(0xFF000000),
-    fontSize: 26.0,
-  );
-
-  final String _label;
-  _CounterLabel(this._label);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      _label,
-      style: _CounterLabel.textStyle,
-    );
-  }
-}
-
-class _CounterButton extends StatelessWidget {
-  final count;
-  final onPressed;
-  _CounterButton(this.count, {@required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 6.0),
-        decoration: BoxDecoration(
-          color: Color(0xFFFD6A02),
-          borderRadius: BorderRadius.circular(4.0),
-        ),
-        child: Center(
-          child: Text(
-            '$count',
-            style: TextStyle(fontSize: 20.0),
-          ),
-        ),
       ),
     );
   }
