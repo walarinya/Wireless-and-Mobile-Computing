@@ -47,11 +47,12 @@ class SelectPlanPage extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Text(
-                'Select Your Plan',
+                'SELECT YOUR\n      PLAN',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 24.0,
+                  fontSize: 32.0,
                   fontWeight: FontWeight.bold,
+                  fontFamily: 'Jost',
                 ),
               ),
             ),
@@ -61,12 +62,13 @@ class SelectPlanPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    PlanCard('Lose Weight', 'assets/lose weight.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
+                    PlanCard('           Lose Weight', 'assets/lose weight.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
                     SizedBox(height: 12.0),
-                    PlanCard('Cardio', 'assets/cardio.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
+                    PlanCard('               Cardio', 'assets/cardio.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
                     SizedBox(height: 12.0),
-                    PlanCard('Build Muscle', 'assets/build muscle.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
+                    PlanCard('           Build Muscle', 'assets/build muscle.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
                   ],
+                  
                 ),
               ),
             ),
@@ -118,6 +120,7 @@ class PlanCard extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
+                  fontFamily: 'Jost',
                 ),
               ),
             ],
