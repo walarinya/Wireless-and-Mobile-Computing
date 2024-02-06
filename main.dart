@@ -1,132 +1,42 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-void main() {
-  runApp(MyApp());
+void main() => runApp(App705());
+
+class App705 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => MaterialApp(home: HomePage());
 }
 
-class MyApp extends StatelessWidget {
+class HomePage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SelectPlanPage(),
-    );
-  }
+  State<HomePage> createState() => HomePageState();
 }
 
-class SelectPlanPage extends StatelessWidget {
+class HomePageState extends State<HomePage> {
+  num _randNo = 0;
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 40.0),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                padding: EdgeInsets.all(12.0),
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Image.asset(
-                  'assets/back.png', // Replace with your back button image asset
-                  width: 90.0,
-                  height: 45.0,
-                  color: Color(0x36E591),
-                ),
-              ),
-            ),
-            SizedBox(height: 20.0),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                'SELECT YOUR\n      PLAN',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Jost',
-                ),
-              ),
-            ),
-            SizedBox(height: 20.0),
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    PlanCard('           Lose Weight', 'assets/lose weight.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
-                    SizedBox(height: 12.0),
-                    PlanCard('               Cardio', 'assets/cardio.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
-                    SizedBox(height: 12.0),
-                    PlanCard('           Build Muscle', 'assets/build muscle.png', gradientColors: [Color(0xFF2ADF88), Color(0xFF628F79)]),
-                  ],
-                  
-                ),
-              ),
-            ),
-          ],
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text('Test'),
         ),
-      ),
-    );
-  }
-}
-
-class PlanCard extends StatelessWidget {
-  final String planName;
-  final String imagePath;
-  final List<Color> gradientColors;
-
-  PlanCard(this.planName, this.imagePath, {required this.gradientColors});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 335.0,
-      height: 117.0,
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: gradientColors,
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Image.asset(
-            imagePath,
-            width: 50.0,
-            height: 100.0,
-            fit: BoxFit.cover,
-          ),
-          SizedBox(width: 20.0),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+        body: Center(
+          child: Column(
             children: [
-              Text(
-                planName,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Jost',
-                ),
+              SizedBox(height: 15),
+              Text(_randNo.toString(), textScaleFactor: 1.5),
+              SizedBox(height: 20),
+              TextButton(
+                child: Text('Random Number', textScaleFactor: 1.2),
+                onPressed: () {
+                  setState(() {
+                    _randNo = 1 + Random().nextInt(100);
+                  });
+                },
               ),
             ],
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      );
 }
